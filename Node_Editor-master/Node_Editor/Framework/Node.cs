@@ -86,6 +86,11 @@ namespace NodeEditorFramework
 			return node;
 		}
 
+        virtual public string GetCode()
+        {
+            return "";
+        }
+
 		/// <summary>
 		/// Makes sure this Node has migrated from the previous save version of NodeKnobs to the current mixed and generic one
 		/// </summary>

@@ -27,6 +27,8 @@ namespace NodeEditorFramework
 		/// </summary>
 		public static void SaveNodeCanvas (string path, bool createWorkingCopy, NodeCanvas nodeCanvas, params NodeEditorState[] editorStates) 
 		{
+            Global.Instance.curCanvas.StartNode = Global.Instance.StartNode;
+
 			if (string.IsNullOrEmpty (path))
 				throw new UnityException ("Cannot save NodeCanvas: No spath specified to save the NodeCanvas " + (nodeCanvas != null? nodeCanvas.name : "") + " to!");
 			if (nodeCanvas == null)

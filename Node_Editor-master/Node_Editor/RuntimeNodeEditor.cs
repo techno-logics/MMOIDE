@@ -135,6 +135,9 @@ public class RuntimeNodeEditor : MonoBehaviour
 			if (state == null) state = editorStates[0];
 		}
 		state.canvas = canvas;
+
+
+        Global.Instance.curCanvas = canvas;
 		
 		NodeEditor.RecalculateAll (canvas);
 	}
@@ -145,6 +148,8 @@ public class RuntimeNodeEditor : MonoBehaviour
 		state = ScriptableObject.CreateInstance<NodeEditorState> ();
 		state.canvas = canvas;
 		state.name = "MainEditorState";
+
+        Global.Instance.curCanvas = canvas;
 	}
 }
 

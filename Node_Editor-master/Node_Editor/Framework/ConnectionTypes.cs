@@ -169,6 +169,15 @@ namespace NodeEditorFramework
 		string OutKnobTex { get; }
 	}
 
+    public class ExecutionType : IConnectionTypeDeclaration
+    {
+        public string Identifier { get { return "Execution"; } }
+        public Type Type { get { return typeof(string); } }
+        public Color Color { get { return Color.red; } }
+        public string InKnobTex { get { return "Textures/In_Knob.png"; } }
+        public string OutKnobTex { get { return "Textures/Out_Knob.png"; } }
+    }
+
 	// TODO: Node Editor: Built-In Connection Types
 	public class FloatType : IConnectionTypeDeclaration 
 	{
@@ -179,5 +188,12 @@ namespace NodeEditorFramework
 		public string OutKnobTex { get { return "Textures/Out_Knob.png"; } }
 	}
 
-
+    public class StringType : IConnectionTypeDeclaration
+    {
+        public string Identifier { get { return "String"; } }
+        public Type Type { get { return typeof(string); } }
+        public Color Color { get { return Color.blue; } }
+        public string InKnobTex { get { return "Textures/In_Knob.png"; } }
+        public string OutKnobTex { get { return "Textures/Out_Knob.png"; } }
+    }
 }
