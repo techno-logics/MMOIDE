@@ -196,4 +196,31 @@ namespace NodeEditorFramework
         public string InKnobTex { get { return "Textures/In_Knob.png"; } }
         public string OutKnobTex { get { return "Textures/Out_Knob.png"; } }
     }
+
+    public class BoolType : IConnectionTypeDeclaration
+    {
+        public string Identifier { get { return "Bool"; } }
+        public Type Type { get { return typeof(bool); } }
+        public Color Color { get { return new Color(2.0f, 1.84f, 0.032f, 1f); } }
+        public string InKnobTex { get { return "Textures/In_Knob.png"; } }
+        public string OutKnobTex { get { return "Textures/Out_Knob.png"; } }
+    }
+
+    public class IntegerType : IConnectionTypeDeclaration
+    {
+        public string Identifier { get { return "Integer"; } }
+        public Type Type { get { return typeof(bool); } }
+        public Color Color { get { return new Color(2.0f, 1.294f, 0.0f, 1.0f); } }
+        public string InKnobTex { get { return "Textures/In_Knob.png"; } }
+        public string OutKnobTex { get { return "Textures/Out_Knob.png"; } }
+    }
+
+    public class DoubleType : IConnectionTypeDeclaration
+    {
+        public string Identifier { get { return "Double"; } }
+        public Type Type { get { return typeof(bool); } }
+        public Color Color { get { return new Color(2.0f, 2.0f, 2.0f, 1.0f); } }
+        public string InKnobTex { get { return "Textures/In_Knob.png"; } }
+        public string OutKnobTex { get { return "Textures/Out_Knob.png"; } }
+    }
 }

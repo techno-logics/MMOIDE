@@ -2,32 +2,32 @@
 using System.Collections;
 using NodeEditorFramework;
 using NodeEditorFramework.Utilities;
+using System;
 
 [System.Serializable]
-[Node(false, "Standard/Data/Float")]
-public class Float : Node
+[Node(false, "Standard/Data/Integer")]
+public class IntegerNode : Node
 {
-    public const string ID = "floatNode";
+    public const string ID = "integerNode";
     public override string GetID { get { return ID; } }
 
-    public float value = 1f;
+    public int value = 0;
 
     public override Node Create(Vector2 pos)
     { // This function has to be registered in Node_Editor.ContextCallback
-        Float node = CreateInstance<Float>();
+        IntegerNode node = CreateInstance<IntegerNode>();
 
-        node.name = "Float Node";
+        node.name = "Integer Node";
         node.rect = new Rect(pos.x, pos.y, 200, 50); ;
 
-        NodeOutput.Create(node, "Value", "Float");
-        //NodeOutput.Create(node, "Value", "Execution");
+        NodeOutput.Create(node, "Value", "Integer");
 
         return node;
     }
 
     protected internal override void NodeGUI()
     {
-        value = RTEditorGUI.FloatField(new GUIContent("Value", "The input value of type float"), value);
+        value = Convert.ToInt32(RTEditorGUI.FloatField(new GUIContent("Value", "The input value of type integer"), value));
         OutputKnob(0);
 
         if (GUI.changed)
@@ -36,7 +36,7 @@ public class Float : Node
 
     public override bool Calculate()
     {
-        Outputs[0].SetValue<float>(value);
+        Outputs[0].SetValue<int>(value);
         return true;
     }
 }

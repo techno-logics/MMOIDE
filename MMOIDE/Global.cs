@@ -30,6 +30,9 @@ public class Global : Singleton<Global>
 
     public void CompileCode(string code, string function_call_code)
     {
+        if (curCanvas.name == null || curCanvas.name == "")
+            curCanvas.name = "new";
+
         string source = @"
 		namespace Foo
 		{
