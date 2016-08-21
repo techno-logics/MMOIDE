@@ -65,6 +65,14 @@ public class PrintNode : Node
 
     public override string GetCode()
     {
-        return "System.Console.WriteLine(\"" + value + "\");";
+        if (Inputs[0].connection.body.GetID == "castNode")
+        {
+            //Debug.Log("Connected to CastNode");
+            return "System.Console.WriteLine(System.Convert.ToString(" + Inputs[0].connection.body.node_params[0] + "));";
+        }
+        else
+        {
+            return "System.Console.WriteLine(\"" + value + "\");";
+        }
     }
 }

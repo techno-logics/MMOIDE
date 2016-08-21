@@ -26,9 +26,20 @@ public class BoolNode : Node
 
     protected internal override void NodeGUI()
     {
+        GUILayout.BeginHorizontal();
+        GUILayout.BeginVertical();
+
         GUILayout.Label("Value");
-        value = GUILayout.Toggle(value, new GUIContent("Value", "The input value of type bool")); 
+
+        GUILayout.EndVertical();
+        GUILayout.BeginVertical();
+
+        value = GUILayout.Toggle(value, new GUIContent("", "The input value of type bool"));
         OutputKnob(0);
+        //Outputs[0].DisplayLayout();
+
+        GUILayout.EndVertical();
+        GUILayout.EndHorizontal();
 
         if (GUI.changed)
             NodeEditor.RecalculateFrom(this);

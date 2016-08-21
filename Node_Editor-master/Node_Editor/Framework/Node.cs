@@ -26,6 +26,9 @@ namespace NodeEditorFramework
 		[NonSerialized]
 		internal bool calculated = true;
 
+        [SerializeField]
+        public List<object> node_params = new List<object>();
+
 		#region General
 
 		/// <summary>
@@ -227,9 +230,12 @@ namespace NodeEditorFramework
 		protected internal virtual void DrawKnobs () 
 		{
 			CheckNodeKnobMigration ();
-			foreach (NodeKnob knob in nodeKnobs)
-				knob.DrawKnob ();
-		}
+            foreach (NodeKnob knob in nodeKnobs)
+            {
+                knob.DrawKnob();
+            }
+
+         }
 
 		/// <summary>
 		/// Draws the node curves
@@ -254,6 +260,36 @@ namespace NodeEditorFramework
 				}
 			}
 		}
+
+        public void RemoveKnob(int knob_id, int knob_gui_id, bool input)
+        {
+            if (!input)
+            {
+                if (Outputs.Count > 0)
+                {
+                    if(Outputs[knob_id].connections.Count > 0)
+                        Outputs[knob_id].connections[0].RemoveConnection();
+                    
+                    DestroyImmediate(Outputs[knob_id]);
+                    Outputs.RemoveAt(knob_id);
+                    DestroyImmediate(nodeKnobs[knob_gui_id]);
+                    nodeKnobs.RemoveAt(knob_gui_id);
+                }
+            }
+            else
+            {
+                if (Inputs.Count > 0)
+                {
+                    if(Inputs[knob_id].connection != null)
+                        Inputs[knob_id].connection.connections.Remove(Inputs[knob_id]);
+
+                    DestroyImmediate(Inputs[knob_id]);
+                    Inputs.RemoveAt(knob_id);
+                    DestroyImmediate(nodeKnobs[knob_gui_id]);
+                    nodeKnobs.RemoveAt(knob_gui_id);
+                }
+            }
+        }
 
 		#endregion
 		

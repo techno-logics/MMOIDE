@@ -109,7 +109,6 @@ public class Add : Node
 
         if (!VariableExits)
         {
-
             code += "float " + VariableName + " = " + Input1Val.ToString() + " + " + Input2Val.ToString() + ";";
         }
 

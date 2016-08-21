@@ -32,7 +32,8 @@ public class DoubleNode : Node
         tmp = RTEditorGUI.TextField(new GUIContent("Value", "The input value of type string"), tmp);
         OutputKnob(0);
 
-        value = Convert.ToDouble(tmp);
+        if(tmp != null && tmp != "")
+            value = Convert.ToDouble(tmp);
 
         if (GUI.changed)
             NodeEditor.RecalculateFrom(this);

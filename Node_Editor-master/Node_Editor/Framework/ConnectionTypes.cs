@@ -209,7 +209,7 @@ namespace NodeEditorFramework
     public class IntegerType : IConnectionTypeDeclaration
     {
         public string Identifier { get { return "Integer"; } }
-        public Type Type { get { return typeof(bool); } }
+        public Type Type { get { return typeof(int); } }
         public Color Color { get { return new Color(2.0f, 1.294f, 0.0f, 1.0f); } }
         public string InKnobTex { get { return "Textures/In_Knob.png"; } }
         public string OutKnobTex { get { return "Textures/Out_Knob.png"; } }
@@ -218,8 +218,18 @@ namespace NodeEditorFramework
     public class DoubleType : IConnectionTypeDeclaration
     {
         public string Identifier { get { return "Double"; } }
-        public Type Type { get { return typeof(bool); } }
+        public Type Type { get { return typeof(double); } }
         public Color Color { get { return new Color(2.0f, 2.0f, 2.0f, 1.0f); } }
+        public string InKnobTex { get { return "Textures/In_Knob.png"; } }
+        public string OutKnobTex { get { return "Textures/Out_Knob.png"; } }
+    }
+
+    //dynamic variable type
+    public class ObjectType : IConnectionTypeDeclaration
+    {
+        public string Identifier { get { return "Object"; } }
+        public Type Type { get { return typeof(object); } }
+        public Color Color { get { return Color.magenta; } }
         public string InKnobTex { get { return "Textures/In_Knob.png"; } }
         public string OutKnobTex { get { return "Textures/Out_Knob.png"; } }
     }
