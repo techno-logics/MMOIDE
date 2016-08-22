@@ -3,6 +3,7 @@ using UnityEngine;
 using System.IO;
 using System.Diagnostics;
 using System;
+using System.Collections.Generic;
 
 public class Global : Singleton<Global>
 {
@@ -88,9 +89,9 @@ public class Global : Singleton<Global>
         //}
         //*/
 
-        File.WriteAllText("Tmp/" + Global.Instance.curCanvas.name + ".code", source);
+        File.WriteAllText("Code/" + Global.Instance.curCanvas.name + ".code", source);
 
-        UnityEngine.Debug.Log("Code written at loc " + "Tmp/" + Global.Instance.curCanvas.name + ".code");
+        UnityEngine.Debug.Log("Code written at loc " + "Code/" + Global.Instance.curCanvas.name + ".code");
 
         try
         {
@@ -105,7 +106,7 @@ public class Global : Singleton<Global>
             myProcess.StartInfo.RedirectStandardError = true;
 
             myProcess.StartInfo.FileName = "Debugger.exe";
-            myProcess.StartInfo.Arguments = "Tmp/" + Global.Instance.curCanvas.name + ".code " + "Compiled/" + Global.Instance.curCanvas.name + ".exe";
+            myProcess.StartInfo.Arguments = "Code/" + Global.Instance.curCanvas.name + ".code " + "Compiled/" + Global.Instance.curCanvas.name + ".exe";
             myProcess.EnableRaisingEvents = true;
             myProcess.Start();
 
@@ -126,6 +127,47 @@ public class Global : Singleton<Global>
         {
             UnityEngine.Debug.Log(e.ToString());
         }
+    }
+
+    public List<Node> GetConnectedNodes(NodeOutput executionKnob)
+    {
+        List<Node> connected_nodes = new List<Node>();
+
+        Node nextNode = executionKnob.connections[0].body;
+
+        bool end = false;
+
+        UnityEngine.Debug.Log("Starting");
+
+        while (!end)
+        {
+            connected_nodes.Add(nextNode);
+
+            UnityEngine.Debug.Log(nextNode.GetID);
+
+            UnityEngine.Debug.Log(nextNode.Outputs[0].connections.Count);
+
+            if (nextNode.Outputs[0].connections.Count == 0)
+            {
+                end = true;
+                break;
+            }
+            nextNode = nextNode.Outputs[0].connections[0].body;
+        }
+
+        return connected_nodes;
+    }
+
+    public string GetCode(List<Node> connectedNodes)
+    {
+        string code = "";
+
+        foreach(Node x in connectedNodes)
+        {
+            code += "\n" + x.GetCode();
+        }
+
+        return code;
     }
 
 }

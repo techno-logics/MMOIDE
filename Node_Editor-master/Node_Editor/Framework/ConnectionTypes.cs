@@ -173,7 +173,7 @@ namespace NodeEditorFramework
     {
         public string Identifier { get { return "Execution"; } }
         public Type Type { get { return typeof(string); } }
-        public Color Color { get { return Color.red; } }
+        public Color Color { get { return new Color(1.5f, 0.0f, 0.0f, 1.0f); } }
         public string InKnobTex { get { return "Textures/In_Knob.png"; } }
         public string OutKnobTex { get { return "Textures/Out_Knob.png"; } }
     }
@@ -183,7 +183,7 @@ namespace NodeEditorFramework
 	{
 		public string Identifier { get { return "Float"; } }
 		public Type Type { get { return typeof(float); } }
-		public Color Color { get { return Color.cyan; } }
+		public Color Color { get { return new Color(0.0f, 2.0f, 2.0f, 1.0f); } }
 		public string InKnobTex { get { return "Textures/In_Knob.png"; } }
 		public string OutKnobTex { get { return "Textures/Out_Knob.png"; } }
 	}
@@ -192,7 +192,7 @@ namespace NodeEditorFramework
     {
         public string Identifier { get { return "String"; } }
         public Type Type { get { return typeof(string); } }
-        public Color Color { get { return Color.blue; } }
+        public Color Color { get { return new Color(0.0f, 0.0f, 1.5f, 1.0f); } }
         public string InKnobTex { get { return "Textures/In_Knob.png"; } }
         public string OutKnobTex { get { return "Textures/Out_Knob.png"; } }
     }
@@ -229,7 +229,16 @@ namespace NodeEditorFramework
     {
         public string Identifier { get { return "Object"; } }
         public Type Type { get { return typeof(object); } }
-        public Color Color { get { return Color.magenta; } }
+        public Color Color { get { return new Color(2.0f, 0.0f, 2.0f, 1.0f); } }
+        public string InKnobTex { get { return "Textures/In_Knob.png"; } }
+        public string OutKnobTex { get { return "Textures/Out_Knob.png"; } }
+    }
+
+    public class VariableType : IConnectionTypeDeclaration
+    {
+        public string Identifier { get { return "Variable"; } }
+        public Type Type { get { return typeof(string); } }
+        public Color Color { get { return new Color(0.0f, 2.0f, 0.0f, 1.0f); } }
         public string InKnobTex { get { return "Textures/In_Knob.png"; } }
         public string OutKnobTex { get { return "Textures/Out_Knob.png"; } }
     }

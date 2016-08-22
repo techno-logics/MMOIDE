@@ -11,16 +11,18 @@ public class PrintNode : Node
     public override string GetID { get { return ID; } }
 
     public string value = "";
+    public string variableName = "";
 
     public override Node Create(Vector2 pos)
     { // This function has to be registered in Node_Editor.ContextCallback
         PrintNode node = CreateInstance<PrintNode>();
 
         node.name = "Print Node";
-        node.rect = new Rect(pos.x, pos.y, 200, 80); ;
+        node.rect = new Rect(pos.x, pos.y, 200, 100); ;
 
         NodeInput.Create(node, "Execution", "Execution");
         NodeInput.Create(node, "Value", "String");
+        NodeInput.Create(node, "Variable Name", "Variable");
 
         NodeOutput.Create(node, "Execution", "Execution");
 
@@ -41,6 +43,9 @@ public class PrintNode : Node
             value = RTEditorGUI.TextField(GUIContent.none, value);
         InputKnob(1);
 
+        GUILayout.Label("Variable Name");
+        InputKnob(2);
+
         GUILayout.EndVertical();
         GUILayout.BeginVertical();
 
@@ -56,8 +61,14 @@ public class PrintNode : Node
 
     public override bool Calculate()
     {
+        variableName = "";
+
         if (Inputs[1].connection != null)
             value = Inputs[1].connection.GetValue<string>();
+
+        if (Inputs[2].connection != null)
+            variableName = Inputs[2].connection.GetValue<string>();
+            
 
         Outputs[0].SetValue<string>(value);
         return true;
@@ -65,10 +76,15 @@ public class PrintNode : Node
 
     public override string GetCode()
     {
-        if (Inputs[0].connection.body.GetID == "castNode")
-        {
+        //if (Inputs[0].connection.body.GetID == "castNode")
+        //{
             //Debug.Log("Connected to CastNode");
-            return "System.Console.WriteLine(System.Convert.ToString(" + Inputs[0].connection.body.node_params[0] + "));";
+          //  return "System.Console.WriteLine(System.Convert.ToString(" + Inputs[0].connection.body.node_params[0] + "));";
+        //}
+        if (variableName != "")
+        {
+            Debug.Log(variableName);
+            return "System.Console.WriteLine(System.Convert.ToString(" + variableName + "));";
         }
         else
         {
