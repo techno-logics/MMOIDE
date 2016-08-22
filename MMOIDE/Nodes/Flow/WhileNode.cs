@@ -4,27 +4,26 @@ using NodeEditorFramework;
 using NodeEditorFramework.Utilities;
 
 [System.Serializable]
-[Node(false, "Standard/Flow/If")]
-public class IfNode : Node
+[Node(false, "Standard/Flow/While")]
+public class WhileNode : Node
 {
-    public const string ID = "ifNode";
+    public const string ID = "whileNode";
     public override string GetID { get { return ID; } }
 
     public bool condition = false;
 
     public override Node Create(Vector2 pos)
     {
-        IfNode node = CreateInstance<IfNode>();
+        WhileNode node = CreateInstance<WhileNode>();
 
-        node.name = "If Node";
-        node.rect = new Rect(pos.x, pos.y, 200, 130);
+        node.name = "While Node";
+        node.rect = new Rect(pos.x, pos.y, 200, 76);
 
         node.CreateInput("Execution", "Execution");
         node.CreateInput("Condition", "Bool");
 
         node.CreateOutput("Execution", "Execution");
-        node.CreateOutput("If True", "Execution");
-        node.CreateOutput("If False", "Execution");
+        node.CreateOutput("While True", "Execution");
 
         return node;
     }
@@ -42,13 +41,12 @@ public class IfNode : Node
         else
             condition = GUILayout.Toggle(condition, new GUIContent("", "Hardcoded condition value"));
         InputKnob(1);
-        
+
         GUILayout.EndVertical();
         GUILayout.BeginVertical();
 
         Outputs[0].DisplayLayout();
         Outputs[1].DisplayLayout();
-        Outputs[2].DisplayLayout();
 
         GUILayout.EndVertical();
         GUILayout.EndHorizontal();
@@ -61,10 +59,9 @@ public class IfNode : Node
     {
         if (Inputs[1].connection != null)
             condition = Inputs[1].connection.GetValue<bool>();
-    
+
         Outputs[0].SetValue<string>("");
         Outputs[1].SetValue<string>("");
-        Outputs[2].SetValue<string>("");
 
         return true;
     }
@@ -75,18 +72,10 @@ public class IfNode : Node
 
         if (Inputs[1].connection != null)
         {
-            code += "\nif(" + Inputs[1].connection.body.GetCode()
+            code += "\nwhile (" + Inputs[1].connection.body.GetCode() 
                 + ")\n{"
                 + Global.Instance.GetCode(Global.Instance.GetConnectedNodes(Outputs[1]))
                 + "\n}\n";
-
-            if (Outputs[2].connections.Count > 0) //If the "False" execution path has connection(s)
-            {
-                code += "else\n{"
-                    + Global.Instance.GetCode(Global.Instance.GetConnectedNodes(Outputs[2]))
-                    + "\n}";
-            }
-            
         }
 
 

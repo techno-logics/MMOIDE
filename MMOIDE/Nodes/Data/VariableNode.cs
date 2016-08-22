@@ -19,7 +19,7 @@ public class VariableNode : Node
         node.name = "Variable Node";
         node.rect = new Rect(pos.x, pos.y, 200, 50);
 
-        NodeOutput.Create(node, "Value", "Variable"); ;
+        NodeOutput.Create(node, "Value", "Variable");
 
         return node;
     }
