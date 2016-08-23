@@ -23,7 +23,7 @@ public class SwitchNode : Node
         SwitchNode node = CreateInstance<SwitchNode>();
 
         node.name = "Switch Node";
-        node.rect = new Rect(pos.x, pos.y, 200, 400);
+        node.rect = new Rect(pos.x, pos.y, 200, 170);
 
         node.CreateInput("Execution", "Execution");
         node.CreateInput("Input", "Integer"); //TODO: STRING SWITCH STATEMENT
@@ -41,11 +41,8 @@ public class SwitchNode : Node
 
         GUILayout.Label("Execution");
         InputKnob(0); //DisplayLayout TODO
-
-        //if (Inputs[1].connection != null) -- WAS REMOVED BECAUSE CONFUSING WITH 2 TEXTBOXES.
-            GUILayout.Label(Inputs[1].name);
-        // else
-        //switchValue = Convert.ToInt32(RTEditorGUI.FloatField(new GUIContent("", "Hardcoded switch integer value"), switchValue));
+        
+        GUILayout.Label(Inputs[1].name);
         InputKnob(1);
 
         newestIndex = Convert.ToInt32(RTEditorGUI.FloatField(new GUIContent("Case", "An integer case to add to (or remove from) the outputs"), newestIndex));
@@ -53,8 +50,7 @@ public class SwitchNode : Node
         {
             CreateOutput("Case " + newestIndex, "Execution");
             occupiedIndices.Add(newestIndex);
-
-            //TODO: Increase node.rect.y for dynamic resize?
+            if(occupiedIndices.Count > 3) rect.height += 18; //TODO: CHECK INCREASE VALUE IS PERFECT
         }
 
         if (GUILayout.Button("Remove Case") && used(newestIndex))
@@ -64,6 +60,7 @@ public class SwitchNode : Node
                 if (Outputs[i].name == "Case " + newestIndex)
                 {
                     RemoveKnob(i, i + Inputs.Count, false);
+                    if (occupiedIndices.Count > 3) rect.height -= 18;
                     occupiedIndices.Remove(newestIndex);
                     break;
                 }
